@@ -35,7 +35,7 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
     public static int RUNNING = 2;
     public static int ERROR_FAILED_TO_START = 3;
     public static int ERROR_NO_SENSOR_FOUND = 4;
-    public static float STEP_IN_METERS = 0.762;
+    public static float STEP_IN_METERS = 0.762f;
 
     private int status;     // status of listener
     private float numSteps; // number of the steps
