@@ -39,6 +39,7 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
 
     private int status;     // status of listener
     private float numSteps; // number of the steps
+    private float startNumSteps; //first value, to be substracted in step counter sensor type
     private long startAt; //time stamp of when the measurement starts
 
     private SensorManager sensorManager; // Sensor manager
@@ -55,6 +56,7 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
     public PedometerListener() {
         this.startAt = 0;
         this.numSteps = 0;
+        this.startNumSteps = 0;
         this.setStatus(PedometerListener.STOPPED);
         this.stepDetector = new StepDetector();
         this.stepDetector.registerListener(this);
@@ -85,8 +87,9 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
         this.callbackContext = callbackContext;
 
         if (action.equals("isStepCountingAvailable")) {
+            Sensor stepCounter = this.sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             Sensor accel = this.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            if (accel != null) {
+            if (accel != null || stepCounter != null) {
                 this.win(true);
                 return true;
             } else {
@@ -95,7 +98,8 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
                 return true;
             }
         } else if (action.equals("isDistanceAvailable")) {
-            this.win(true);
+            //distance is never available in Android
+            this.win(false);
             return true;
         } else if (action.equals("isFloorCountingAvailable")) {
             //floor counting is never available in Android
@@ -145,14 +149,17 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
 
         this.startAt = System.currentTimeMillis();
         this.numSteps = 0;
+        this.startNumSteps = 0;
         this.setStatus(PedometerListener.STARTING);
 
-        // Get pedometer from sensor manager
-        this.mSensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        // Get pedometer or accelerometer from sensor manager
+        this.mSensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if(this.mSensor == null) this.mSensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         // If found, then register as listener
         if (this.mSensor != null) {
-            if (this.sensorManager.registerListener(this, this.mSensor, SensorManager.SENSOR_DELAY_FASTEST)) {
+            int sensorDelay = this.mSensor.getType() == Sensor.TYPE_STEP_COUNTER ? SensorManager.SENSOR_DELAY_UI : SensorManager.SENSOR_DELAY_FASTEST;
+            if (this.sensorManager.registerListener(this, this.mSensor, sensorDelay)) {
                 this.setStatus(PedometerListener.STARTING);
             } else {
                 this.setStatus(PedometerListener.ERROR_FAILED_TO_START);
@@ -191,8 +198,8 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // Only look at step counter events
-        if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER) {
+        // Only look at step counter or accelerometer events
+        if (event.sensor.getType() != this.mSensor.getType()) {
             return;
         }
 
@@ -202,8 +209,21 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
         }
         this.setStatus(PedometerListener.RUNNING);
 
-        stepDetector.updateAccel(
-            event.timestamp, event.values[0], event.values[1], event.values[2]);
+        if(this.mSensor.getType() == Sensor.TYPE_STEP_COUNTER){
+            float steps = event.values[0];
+
+            if(this.startNumSteps == 0)
+              this.startNumSteps = steps;
+
+            this.numSteps = steps - this.startNumSteps;
+
+            this.win(this.getStepsJSON());
+
+        }else if(this.mSensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            stepDetector.updateAccel(
+                event.timestamp, event.values[0], event.values[1], event.values[2]);
+            
+        }
     }
 
     @Override

@@ -1,10 +1,10 @@
 {
-  "name": "cordova-plugin-accel-pedometer",
-  "version": "0.1.0",
+  "name": "cordova-pedometer",
+  "version": "0.2.0",
   "author": "Lee Crossley <leee@hotmail.co.uk>; Edited by Emeson Santana <emesonsantana@gmail.com>",
   "description": "Cordova / PhoneGap Plugin for the Core Motion Pedometer to fetch pedestrian-related data, such as step counts and other information about the distance travelled.",
   "cordova": {
-    "id": "cordova-plugin-accel-pedometer",
+    "id": "cordova-pedometer",
     "platforms": [
       "ios",
       "android"
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emesonsantana/cordova-plugin-accel-pedometer.git"
+    "url": "git+https://github.com/emesonsantana/cordova-pedometer.git"
   },
   "keywords": [
     "cordova",
@@ -34,7 +34,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/emesonsantana/cordova-plugin-accel-pedometer/issues"
+    "url": "https://github.com/emesonsantana/cordova-pedometer/issues"
   },
-  "homepage": "https://github.com/emesonsantana/cordova-plugin-accel-pedometer#readme"
+  "homepage": "https://github.com/emesonsantana/cordova-pedometer#readme"
 }

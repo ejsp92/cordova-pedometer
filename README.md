@@ -1,13 +1,13 @@
-## Pedometer Plugin for Cordova ( Using accelerometer in android version )
+## Pedometer Plugin for Cordova ( with accelerometer fallback in android version )
 
-**This plugin is based on [Cordova Plugin Pedometer](https://github.com/leecrossley/cordova-plugin-pedometer). The calculation of the steps through the accelerometer in the android version was based on [Simple Pedometer for Android](https://github.com/google/simple-pedometer)**
+**This plugin, based on [Cordova Plugin Pedometer](https://github.com/leecrossley/cordova-plugin-pedometer), uses the accelerometer sensor if the step counter sensor is not available. The calculation of the steps through the accelerometer in the android version was based on [Simple Pedometer for Android](https://github.com/google/simple-pedometer)**
 
 ## Install
 
 #### Latest version from GitHub
 
 ```
-cordova plugin add https://github.com/emesonsantana/cordova-plugin-accel-pedometer.git
+cordova plugin add https://github.com/emesonsantana/cordova-pedometer.git
 ```
 
 You **do not** need to reference any JavaScript, the Cordova plugin architecture will add a pedometer object to your root automatically when you build.
@@ -98,7 +98,7 @@ pedometer.queryData(successHandler, onError, options);
 ## Platform and device support
 
 - iOS 8+. These capabilities are not supported on all devices, even with iOS 8, so please ensure you use the *check feature support* functions.
-- Android (when associated hardware is available). Only live accelerometer data is supported.
+- Android (when associated hardware is available). Only live pedometer or accelerometer data is supported.
 
 ## License
 
