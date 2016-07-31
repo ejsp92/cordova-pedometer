@@ -23,8 +23,8 @@ public class StepDetector {
 
   private static final int ACCEL_RING_SIZE = 50;
   private static final int VEL_RING_SIZE = 10;
-  private static final float STEP_THRESHOLD = 8f; // Default 4f
-  private static final int STEP_DELAY_NS = 500000000; // Default 250000000
+  private static final float STEP_THRESHOLD = 4f; // Default 4f
+  private static final int STEP_DELAY_NS = 250000000; // Default 250000000
 
   private int accelRingCounter = 0;
   private float[] accelRingX = new float[ACCEL_RING_SIZE];
