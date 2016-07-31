@@ -95,8 +95,7 @@ public class PedometerListener extends CordovaPlugin implements SensorEventListe
                 return true;
             }
         } else if (action.equals("isDistanceAvailable")) {
-            //distance is never available in Android
-            this.win(false);
+            this.win(true);
             return true;
         } else if (action.equals("isFloorCountingAvailable")) {
             //floor counting is never available in Android
