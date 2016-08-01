@@ -26,12 +26,12 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Pedometer">
-                <param name="android-package" value="org.apache.cordova.pedometer.PedometerListener" />
+                <param name="android-package" value="com.emesonsantana.cordova.pedometer.PedometerListener" />
             </feature>
         </config-file>
-        <source-file src="src/android/PedometerListener.java" target-dir="src/org/apache/cordova/pedometer" />
-        <source-file src="src/android/SensorFusionMath.java" target-dir="src/org/apache/cordova/pedometer" />
-        <source-file src="src/android/StepDetector.java" target-dir="src/org/apache/cordova/pedometer" />
-        <source-file src="src/android/StepListener.java" target-dir="src/org/apache/cordova/pedometer" />
+        <source-file src="src/android/PedometerListener.java" target-dir="src/com/emesonsantana/cordova/pedometer" />
+        <source-file src="src/android/SensorFusionMath.java" target-dir="src/com/emesonsantana/cordova/pedometer" />
+        <source-file src="src/android/StepDetector.java" target-dir="src/com/emesonsantana/cordova/pedometer" />
+        <source-file src="src/android/StepListener.java" target-dir="src/com/emesonsantana/cordova/pedometer" />
     </platform>
 </plugin>
