@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.apache.cordova.pedometer;
+package com.emesonsantana.cordova.pedometer;
 
 /**
  * Receives sensor updates and alerts a StepListener when a step has been detected.

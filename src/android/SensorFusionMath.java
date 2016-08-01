@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.apache.cordova.pedometer;
+package com.emesonsantana.cordova.pedometer;
 
 /**
  * A collection of matrix and vector operations used specifically for sensor

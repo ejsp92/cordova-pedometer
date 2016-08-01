@@ -3,7 +3,7 @@
  * Based on the accelerometer plugin: https://github.com/apache/cordova-plugin-device-motion
  * License: MIT
  */
-package org.apache.cordova.pedometer;
+package com.emesonsantana.cordova.pedometer;
 
 import java.util.List;
 
